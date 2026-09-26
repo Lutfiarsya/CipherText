@@ -1,4 +1,5 @@
 # CipherText
+Ciphertext adalah data atau teks asli (plaintext) yang telah diubah melalui proses enkripsi menggunakan algoritma matematika dan kunci tertentu sehingga berwujud seperti kode acak dan tidak dapat dibaca oleh pihak yang tidak berwenang.
 
 ## Installation
 Install all required dependencies:
