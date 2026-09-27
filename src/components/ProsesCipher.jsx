@@ -1,57 +1,119 @@
-export const ProsesCipher = ({PlainText, keyValue, cipher, ascii, shifted}) => {
+export const ProsesCipher = ({
+    PlainText,
+    keyValue,
+    cipher,
+    ascii = [],
+    shifted = [],
+}) => {
 
-    // Mapping code ASCII tiap huruf
-    const charCode = [...PlainText.toUpperCase()]
-    .map((char, code) => `${char} = ${[...ascii][code]}`)
-    .filter((_, code) => shifted[code] !== 32)
-    
-    // Mapping huruf setelah di kombinasikan dengan key
-    const charCodeShifted = [...cipher.toUpperCase()]
-    .map((char, code) => `${[...shifted][code]} = ${char}`)
-    .filter((_, code) => shifted[code] !== 32)
-    return(
-        <div >
-            {PlainText || keyValue || cipher || ascii || shifted ? 
-            <div className="flex flex-col items-start gap-4 justify-center">
-                <div className="flex flex-col justify-center text-xl font-semibold">
-                    <h2>Plaintext</h2>
-                    <h2>{PlainText}</h2>
+    const text = PlainText || ""
+
+    return (
+        <div className="process-wrapper">
+
+            <div className="process-summary">
+
+                <div className="process-value">
+                    <span>Plaintext</span>
+                    <strong>
+                        {text || "-"}
+                    </strong>
                 </div>
 
-                <div className="flex flex-col justify-center text-xl font-semibold">
-                    <h2>Key</h2>
-                    <h2>{keyValue}</h2>
+                <div className="process-arrow">
+                    →
                 </div>
 
-                <div className="justify-center w-[50%] text-xl font-semibold">
-                    <h2>ASCII setiap huruf</h2>
-                    <div className="grid grid-cols-4">
-                    {charCode.map((i) => {
-                        return(
-                                <h2 className="text-gray-700">{i}</h2>
-                            )
-                        })}
+                <div className="process-value">
+                    <span>Key</span>
+                    <strong>
+                        {keyValue || "0"}
+                    </strong>
+                </div>
+
+                <div className="process-arrow">
+                    →
+                </div>
+
+                <div className="process-value result">
+                    <span>Ciphertext</span>
+                    <strong>
+                        {cipher || "-"}
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div className="character-grid">
+
+                {[
+                    ...text.toUpperCase(),
+                ].map((char, index) => {
+
+                    const originalCode =
+                        ascii[index]
+
+                    const shiftedCode =
+                        shifted[index]
+
+                    const output =
+                        cipher?.[index] || char
+
+                    return (
+                        <div
+                            className="character-card"
+                            key={`${char}-${index}`}
+                        >
+
+                            <div className="character-position">
+                                Character {index + 1}
+                            </div>
+
+                            <div className="character-original">
+                                {char === " "
+                                    ? "SPACE"
+                                    : char}
+                            </div>
+
+                            <div className="character-arrow">
+                                ↓
+                            </div>
+
+                            <div className="character-detail">
+
+                                <div>
+                                    <span>
+                                        ASCII
+                                    </span>
+
+                                    <strong>
+                                        {originalCode ?? "-"}
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>
+                                        Shifted
+                                    </span>
+
+                                    <strong>
+                                        {shiftedCode ?? "-"}
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                            <div className="character-result">
+                                {output}
+                            </div>
+
                         </div>
-                </div>
-                
-                <div className="justify-center text-xl font-semibold">
-                    <h2>Shifted setiap huruf dengan key</h2>
-                    <div className="grid grid-cols-3">
-                    {charCodeShifted.map((i) => {
-                        return(
-                                <h2 className="text-gray-700">{i}</h2>
-                            )
-                        })}
-                        </div>
-                </div>
-                
+                    )
+                })}
 
-                <div className="flex flex-col justify-center text-xl font-semibold">
-                    <h2>Cipher Text</h2>
-                    <h2>{cipher}</h2>
-                </div>
-            </div> : 
-            <div>Tidak ada encryption</div>}
+            </div>
+
         </div>
     )
 }
