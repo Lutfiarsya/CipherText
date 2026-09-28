@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CipherPage } from "./components/CipherPage";
 import { BruteForce } from "./components/BruteForce";
+import { HowItWorks } from "./components/HowItWorks"; // <-- IMPORT BARU
 
 function LockIcon({ size = 28 }) {
   return (
@@ -117,11 +118,9 @@ function HeroIllustration() {
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      {/* decorative shapes */}
       <circle cx="590" cy="95" r="90" fill="#EEF2FF" />
       <circle cx="665" cy="225" r="70" fill="#E8F0FF" />
 
-      {/* lock */}
       <rect
         x="55"
         y="45"
@@ -146,7 +145,6 @@ function HeroIllustration() {
         strokeLinecap="round"
       />
 
-      {/* laptop screen */}
       <rect
         x="205"
         y="82"
@@ -169,7 +167,6 @@ function HeroIllustration() {
         strokeWidth="5"
       />
 
-      {/* laptop face */}
       <circle cx="320" cy="171" r="8" fill="#172554" />
       <circle cx="391" cy="171" r="8" fill="#172554" />
 
@@ -183,7 +180,6 @@ function HeroIllustration() {
       <circle cx="298" cy="195" r="10" fill="#FFB8C7" />
       <circle cx="411" cy="195" r="10" fill="#FFB8C7" />
 
-      {/* laptop base */}
       <path
         d="M180 280H530L570 310C578 317 573 328 562 328H148C137 328 132 317 140 310L180 280Z"
         fill="#6D7FF2"
@@ -196,7 +192,6 @@ function HeroIllustration() {
         fill="#E6EBFF"
       />
 
-      {/* A -> D card */}
       <rect
         x="425"
         y="20"
@@ -217,7 +212,6 @@ function HeroIllustration() {
         A → D
       </text>
 
-      {/* alphabet card */}
       <path
         d="M485 120C485 105 497 94 512 96L650 112C666 114 677 127 675 143L665 213C663 229 649 239 633 237L497 221C481 219 471 206 473 190L485 120Z"
         fill="white"
@@ -245,7 +239,6 @@ function HeroIllustration() {
         D E F G H I...
       </text>
 
-      {/* decorative stars */}
       <path
         d="M590 42l5 14 14 5-14 5-5 14-5-14-14-5 14-5 5-14Z"
         fill="#8D7BFF"
@@ -261,6 +254,8 @@ function HeroIllustration() {
 
 function App() {
   const [type, setType] = useState(true);
+  // State baru untuk mengontrol navigasi atas
+  const [activeTab, setActiveTab] = useState("home"); 
 
   return (
     <div className="app">
@@ -281,17 +276,26 @@ function App() {
           </div>
 
           <nav className="navigation">
-            <button className="nav-link active">
+            <button 
+              className={`nav-link ${activeTab === "home" ? "active" : ""}`}
+              onClick={() => setActiveTab("home")}
+            >
               <HomeIcon />
               <span>Home</span>
             </button>
 
-            <button className="nav-link">
+            <button 
+              className={`nav-link ${activeTab === "about" ? "active" : ""}`}
+              onClick={() => setActiveTab("about")}
+            >
               <InfoIcon />
               <span>About</span>
             </button>
 
-            <button className="nav-link">
+            <button 
+              className={`nav-link ${activeTab === "howItWorks" ? "active" : ""}`}
+              onClick={() => setActiveTab("howItWorks")}
+            >
               <BookIcon />
               <span>How It Works</span>
             </button>
@@ -332,31 +336,53 @@ function App() {
           </div>
         </section>
 
-        {/* MODE SWITCH */}
-        <section className="mode-section">
-          <div className="mode-switch">
-            <button
-              type="button"
-              onClick={() => setType(false)}
-              className={`mode-button ${!type ? "active" : ""}`}
-            >
-              Brute Force
-            </button>
+        {/* RENDER HALAMAN BERDASARKAN ACTIVE TAB */}
+        {activeTab === "home" && (
+          <>
+            {/* MODE SWITCH */}
+            <section className="mode-section">
+              <div className="mode-switch">
+                <button
+                  type="button"
+                  onClick={() => setType(false)}
+                  className={`mode-button ${!type ? "active" : ""}`}
+                >
+                  Brute Force
+                </button>
 
-            <button
-              type="button"
-              onClick={() => setType(true)}
-              className={`mode-button ${type ? "active" : ""}`}
-            >
-              Caesar Cipher
-            </button>
-          </div>
-        </section>
+                <button
+                  type="button"
+                  onClick={() => setType(true)}
+                  className={`mode-button ${type ? "active" : ""}`}
+                >
+                  Caesar Cipher
+                </button>
+              </div>
+            </section>
 
-        {/* CONTENT */}
-        <section className="content-wrapper">
-          {type ? <CipherPage /> : <BruteForce />}
-        </section>
+            {/* CONTENT */}
+            <section className="content-wrapper">
+              {type ? <CipherPage /> : <BruteForce />}
+            </section>
+          </>
+        )}
+
+        {/* TAMPILAN HOW IT WORKS */}
+        {activeTab === "howItWorks" && (
+          <section className="content-wrapper">
+            <HowItWorks />
+          </section>
+        )}
+
+        {/* TAMPILAN ABOUT */}
+        {activeTab === "about" && (
+          <section className="content-wrapper" style={{ padding: "2rem", color: "white", textAlign: "center" }}>
+            <h2>About CipherLab</h2>
+            <p style={{ marginTop: "1rem" }}>
+              CipherLab adalah platform demonstrasi interaktif kriptografi sederhana yang dirancang untuk pembelajaran Caesar Cipher dan analisis serangan Brute Force.
+            </p>
+          </section>
+        )}
       </main>
 
       {/* FOOTER */}
