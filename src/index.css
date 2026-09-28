@@ -1041,10 +1041,10 @@ input[type="number"]:focus {
 }
 
 /* =====================================================
-   TEST CASES
+   SECURITY NOTE (How It Works)
 ===================================================== */
 
-.test-section {
+.security-section {
   margin-top: 24px;
 
   padding: 28px;
@@ -1057,14 +1057,14 @@ input[type="number"]:focus {
   box-shadow: var(--shadow);
 }
 
-.test-grid {
+.security-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 
   gap: 14px;
 }
 
-.test-card {
+.security-card {
   padding: 18px;
 
   background: #fafbff;
@@ -1074,7 +1074,7 @@ input[type="number"]:focus {
   border-radius: 14px;
 }
 
-.test-id {
+.security-id {
   color: #6b60d8;
 
   font-size: 10px;
@@ -1083,13 +1083,13 @@ input[type="number"]:focus {
   letter-spacing: 0.1em;
 }
 
-.test-card h4 {
+.security-card h4 {
   margin: 9px 0 6px;
 
   font-size: 14px;
 }
 
-.test-card p {
+.security-card p {
   margin: 0;
 
   color: #7f8ba4;
@@ -1296,7 +1296,7 @@ input[type="number"]:focus {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .test-grid {
+  .security-grid {
     grid-template-columns: 1fr;
   }
 
@@ -2463,4 +2463,43 @@ input[type="number"]:focus {
     flex-direction: column;
     gap: 5px;
   }
+}
+
+/* =====================================================
+   SHARED — dipakai setelah refactor (menggantikan inline style)
+===================================================== */
+
+.primary-button-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+.character-result {
+  margin-top: 10px;
+
+  color: var(--green);
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.howitworks-page {
+  width: 100%;
+}
+
+.article {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.article-justify {
+  text-align: justify;
+}
+
+.article-note {
+  color: #666;
+  font-size: 0.9rem;
 }
