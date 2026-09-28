@@ -446,7 +446,7 @@ export function CipherPage() {
             </p>
 
             <div className="algorithm-value">
-              +{keyNumber || 0}
+              +{keyNumber || 3}
             </div>
           </div>
 

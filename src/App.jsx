@@ -2,6 +2,8 @@ import { useState } from "react";
 import { CipherPage } from "./components/CipherPage";
 import { BruteForce } from "./components/BruteForce";
 import { HowItWorks } from "./components/HowItWorks"; // <-- IMPORT BARU
+import About from "./components/About";
+import TestCases from "./components/TestCases";
 
 function LockIcon({ size = 28 }) {
   return (
@@ -105,6 +107,21 @@ function UserIcon() {
     >
       <circle cx="12" cy="8" r="4" />
       <path d="M4 21c.7-4.2 3.4-6.3 8-6.3s7.3 2.1 8 6.3H4Z" />
+    </svg>
+  );
+}
+function CheckIcon() {
+  return (
+    <svg
+      width="17"
+      height="17"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M8 12l3 3 5-6" />
     </svg>
   );
 }
@@ -263,9 +280,6 @@ function App() {
       <header className="navbar">
         <div className="navbar-inner">
           <div className="brand">
-            <div className="brand-mark">
-              <LockIcon size={29} />
-            </div>
 
             <div>
               <div className="brand-name">CipherLab</div>
@@ -299,17 +313,15 @@ function App() {
               <BookIcon />
               <span>How It Works</span>
             </button>
+
+            <button 
+              className={`nav-link ${activeTab === "testCases" ? "active" : ""}`}
+              onClick={() => setActiveTab("testCases")}
+            >
+              <CheckIcon />
+              <span>Test Cases</span>
+            </button>
           </nav>
-
-          <div className="nav-actions">
-            <button className="icon-button" aria-label="Theme">
-              <SunIcon />
-            </button>
-
-            <button className="profile-button" aria-label="Profile">
-              <UserIcon />
-            </button>
-          </div>
         </div>
       </header>
 
@@ -376,11 +388,14 @@ function App() {
 
         {/* TAMPILAN ABOUT */}
         {activeTab === "about" && (
-          <section className="content-wrapper" style={{ padding: "2rem", color: "white", textAlign: "center" }}>
-            <h2>About CipherLab</h2>
-            <p style={{ marginTop: "1rem" }}>
-              CipherLab adalah platform demonstrasi interaktif kriptografi sederhana yang dirancang untuk pembelajaran Caesar Cipher dan analisis serangan Brute Force.
-            </p>
+          <section className="content-wrapper">
+            <About />
+          </section>
+        )}
+
+        {activeTab === "testCases" && (
+          <section className="content-wrapper">
+            <TestCases />
           </section>
         )}
       </main>
